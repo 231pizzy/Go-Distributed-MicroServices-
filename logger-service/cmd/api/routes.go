@@ -17,7 +17,7 @@ func (app *Application) routes() *chi.Mux {
 		MaxAge:           300,
 	}))
 
-	router.Post("/authenticate", app.authentication)
+	router.Post("/log", app.WriteLog)
 
 	return router
 }
