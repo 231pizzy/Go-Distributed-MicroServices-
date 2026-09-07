@@ -67,12 +67,18 @@ func (app *Application) logRequest(name, data string) error {
 		return err
 	}
 
+	request.Header.Set("Content-Type", "application/json")
+
 	client := &http.Client{}
 	response, err := client.Do(request)
 	if err != nil {
 		return err
 	}
 	defer response.Body.Close()
+
+	if response.StatusCode != http.StatusAccepted {
+		return fmt.Errorf("logger returned status %d", response.StatusCode)
+	}
 
 	return nil
 }
